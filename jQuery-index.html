@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="jQuery-index.css">
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <h2>珠宝首饰</h2>
+    <ul class="box">
+      <li class="good">
+        <div class="cover">
+          <a class="btn delete" href="#">删除</a>
+        </div>
+        <img src="https://picsum.photos/200/200/?image=1" alt="">
+        <div class="name">藏美千足金</div>
+        <div class="price">￥1699.00</div>
+      </li>
+      <li class="good">
+        <div class="cover">
+            <a class="btn delete" href="#">删除</a>
+        </div>
+        <img src="https://picsum.photos/200/200/?image=2" alt="">
+        <div class="name">和田玉</div>
+        <div class="price">￥1699.00</div>
+      </li>
+      <li class="good">
+        <div class="cover">
+            <a class="btn delete" href="#">删除</a>
+        </div>
+        <img src="https://picsum.photos/200/200/?image=3" alt="">
+        <div class="name">路路通吊坠</div>
+        <div class="price">￥1699.00</div>
+      </li>
+    </ul>
+
+    <a class="btn add" href="#">添加</a>
+    <a class="btn edit" href="#">编辑</a>
+  </div>
+
+
+  <script>
+    //编辑按钮
+    $('.edit').on('click',function(){
+      event.preventDefault()
+      $('.cover').fadeToggle()
+    })
+
+    //删除按钮，使用事件代理
+    $('.box').on('click','.delete',function(){
+      event.preventDefault()
+      $(this).parents('.good').remove()
+    })
+
+    //添加按钮
+    function createli(good) {
+      let li = ''
+      li += '<li class="good">'
+      li +=   '<div class="cover">'
+      li +=     '<a class="btn delete" href="#">删除</a>'
+      li +=   '</div>'
+      li +=   '<img src="'+good.img+'" alt="">'
+      li +=   '<div class="name">' + good.name + '</div>'
+      li +=   '<div class="price">' + good.price + '</div>'
+      li += '</li>'
+      
+      return li
+    }
+
+    function getData() {
+      let data = []
+      for(let i = 0; i < 3; i++ ){
+        let random = Math.floor(Math.random()*100)
+        let good = {
+          name: '纯金项链',
+          price: '￥' + random + '.00',
+          img: 'https://picsum.photos/200/200/?image=' + random
+        }
+        data.push(good)  
+      }
+      return data
+    }
+
+    $('.add').on('click',function(){
+      event.preventDefault()
+      let data = getData()
+      $.each(data,function(index,good){
+        let li = createli(good)
+        $('.box').append(li)
+      })
+    })
+  </script>
+</body>
+</html>

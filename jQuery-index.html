@@ -87,6 +87,7 @@
 
     $('.add').on('click',function(){
       event.preventDefault()
+      $('.cover').fadeOut()
       let data = getData()
       $.each(data,function(index,good){
         let li = createli(good)
